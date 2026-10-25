@@ -1,0 +1,232 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ContaFácil</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <header>
+      <h1>Conta<span>Fácil</span></h1>
+      <p>Controle de serviços, clientes e compras</p>
+    </header>
+
+    <section class="panel">
+      <label>
+        Mês de referência
+        <input id="month" type="month">
+      </label>
+
+      <div class="stats">
+        <article>
+          Recebido
+          <strong id="received">R$ 0,00</strong>
+        </article>
+        <article>
+          Compras
+          <strong id="spent">R$ 0,00</strong>
+        </article>
+        <article>
+          Saldo
+          <strong id="balance">R$ 0,00</strong>
+        </article>
+        <article>
+          Atendimentos
+          <strong id="attCount">0</strong>
+        </article>
+      </div>
+    </section>
+
+    <div class="columns">
+      <section class="panel">
+        <h2>Cadastrar serviço</h2>
+
+        <form id="serviceForm">
+          <label>
+            Nome do serviço
+            <input id="serviceName" required
+              placeholder="Ex.: Corte de cabelo">
+          </label>
+
+          <label>
+            Preço padrão (R$)
+            <input id="servicePrice" type="number"
+              min="0" step="0.01" required>
+          </label>
+
+          <button type="submit" id="serviceSubmit">
+            Salvar serviço
+          </button>
+
+          <button type="button" id="cancelEdit"
+            class="secondary" hidden>
+            Cancelar edição
+          </button>
+        </form>
+
+        <h3>Serviços cadastrados</h3>
+        <ul id="serviceList"></ul>
+      </section>
+
+      <section class="panel">
+        <h2>Registrar atendimento</h2>
+
+        <form id="appointmentForm">
+          <label>
+            Cliente
+            <input id="client" required>
+          </label>
+
+          <label>
+            Serviço
+            <select id="serviceSelect" required>
+              <option value="">
+                Selecione um serviço
+              </option>
+            </select>
+          </label>
+
+          <label>
+            Valor cobrado
+            <input id="charged" type="number"
+              min="0" step="0.01" required>
+          </label>
+
+          <label>
+            Valor recebido
+            <input id="paid" type="number"
+              min="0" step="0.01" required>
+          </label>
+
+          <label>
+            Data
+            <input id="appointmentDate"
+              type="date" required>
+          </label>
+
+          <button type="submit">
+            Salvar atendimento
+          </button>
+        </form>
+      </section>
+    </div>
+
+    <section class="panel">
+      <h2>Cadastrar vários produtos de uma vez</h2>
+
+      <label>
+        Data da compra
+        <input id="purchaseDate" type="date">
+      </label>
+
+      <div class="productFields">
+        <label>
+          Produto
+          <input id="product"
+            placeholder="Ex.: Shampoo">
+        </label>
+
+        <label>
+          Quantidade
+          <input id="quantity" type="number"
+            min="0.01" step="0.01" value="1">
+        </label>
+
+        <label>
+          Preço unitário
+          <input id="unit" type="number"
+            min="0" step="0.01">
+        </label>
+
+        <button id="addProduct" type="button">
+          Adicionar à lista
+        </button>
+      </div>
+
+      <div class="scroll">
+        <table>
+          <thead>
+            <tr>
+              <th>Produto</th>
+              <th>Quantidade</th>
+              <th>Preço</th>
+              <th>Total</th>
+              <th>Ação</th>
+            </tr>
+          </thead>
+          <tbody id="pendingList"></tbody>
+        </table>
+      </div>
+
+      <p id="pendingTotal"></p>
+
+      <button id="saveBatch" type="button">
+        Salvar todas as compras
+      </button>
+    </section>
+
+    <section class="panel">
+      <h2>Atendimentos do mês</h2>
+
+      <div class="scroll">
+        <table>
+          <thead>
+            <tr>
+              <th>Data</th>
+              <th>Cliente</th>
+              <th>Serviço</th>
+              <th>Cobrado</th>
+              <th>Recebido</th>
+              <th>Pendente</th>
+              <th>Ação</th>
+            </tr>
+          </thead>
+          <tbody id="appointmentsList"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Compras do mês</h2>
+
+      <div class="scroll">
+        <table>
+          <thead>
+            <tr>
+              <th>Data</th>
+              <th>Produto</th>
+              <th>Qtd.</th>
+              <th>Unitário</th>
+              <th>Total</th>
+              <th>Ação</th>
+            </tr>
+          </thead>
+          <tbody id="purchasesList"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="panel">
+      <button id="exportCSV">
+        Exportar relatório CSV
+      </button>
+
+      <button id="backupJSON" class="secondary">
+        Fazer backup dos dados
+      </button>
+
+      <p class="note">
+        Os dados ficam salvos apenas neste navegador.
+        Faça backup regularmente. O saldo não considera
+        impostos nem outros custos não cadastrados.
+      </p>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
